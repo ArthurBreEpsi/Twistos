@@ -7,6 +7,20 @@
     <meta name="keywords" content="Form,flex, ,Twitter form ,sachindusahan,html,css" />
     <link rel="stylesheet" href="connexion.css">
     <meta property="og:title" content="Twitter Login Form" />
+    <script>
+        function rediriger() {
+            // Récupérer la valeur sélectionnée dans l'input range
+            var valeurRange = document.getElementById("monRange").value;
+            
+            // Rediriger vers la nouvelle page en passant la valeur dans l'URL (GET request)
+            window.location.href = "nouvellepage.html?valeur=" + valeurRange;
+        }
+
+        // Fonction pour afficher la valeur du curseur en temps réel
+        function afficherValeur(valeur) {
+            document.getElementById("valeurAffichee").innerText = valeur;
+        }
+    </script>
 </head>
 <body>
 <div class='container'>
@@ -23,18 +37,16 @@
     <div class='div-3'>
         <div class='sub-div-3'>
             <label>Temps d'utiliation</label><br>
-            <select id="choix" name="choix">
-                <option value="option1">5 Minutes</option>
-                <option value="option2">10 Minutes</option>
-                <option value="option3">15 Minutes</option>
-                <option value="option3">20 Minutes</option>
-            </select>
+            <input type="range" id="monRange" name="range" min="0" max="20" value="10" oninput="afficherValeur(this.value)">
+
+            <!-- Affichage dynamique de la valeur du curseur -->
+            <span id="valeurAffichee">10</span>
         </div>
     </div>
 
     <div class='div-5'>
         <div class='sub-div-5'>
-            <button>Log in</button>
+            <button onclick="rediriger()">Log in</button>
         </div>
     </div>
 </div>
