@@ -64,7 +64,8 @@
       <script>
         // je récupère la valeur du temps pour totaltime sous cette forme : index.html?valeur=" + valeurRange, comment faire pour récuperer la valeur de valeurRange ?*
         const urlParams = new URLSearchParams(window.location.search);
-        const choix = urlParams.get('valeur');
+        let choix = urlParams.get('valeur');
+        choix = choix * 60; // Convertir les secondes en minutes
         const totalTime = choix; // Temps en secondes
         let timeLeft = totalTime;
 
