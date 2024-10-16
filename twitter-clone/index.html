@@ -62,7 +62,12 @@
       </div>
 
       <script>
-        const totalTime = 10; // Temps en secondes
+        // que le compte a rebours commence avec le temps recue par url de la page connexion.html
+        const urlParams = new URLSearchParams(window.location.search);
+        const choix = urlParams.get('choix');
+        console.log(choix);
+
+        const totalTime = choix; // Temps en secondes
         let timeLeft = totalTime;
 
         const timeDisplay = document.getElementById('time');
