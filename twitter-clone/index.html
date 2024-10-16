@@ -50,6 +50,81 @@
         <span class="material-icons"> more_horiz </span>
         <h2>More</h2>
       </div>
+
+      <div id="count" class="countdown">
+        <div class="circle">
+          <svg>
+            <circle cx="50%" cy="50%" r="45%"></circle>
+            <circle cx="50%" cy="50%" r="45%" id="progress"></circle>
+          </svg>
+          <div class="time" id="time">00:00</div>
+        </div>
+      </div>
+
+      <script>
+        const totalTime = 10; // Temps en secondes
+        let timeLeft = totalTime;
+
+        const timeDisplay = document.getElementById('time');
+        const progressCircle = document.getElementById('progress');
+        const circumference = 2 * Math.PI * 90; // 90 = r * 2 (45% du diamètre)
+        progressCircle.style.strokeDasharray = `${circumference}`;
+        progressCircle.style.strokeDashoffset = `${circumference}`;
+
+        function updateCountdown() {
+          const minutes = Math.floor(timeLeft / 60);
+          const seconds = timeLeft % 60;
+          timeDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+          const offset = circumference - (timeLeft / totalTime) * circumference;
+          progressCircle.style.strokeDashoffset = offset;
+
+          if (timeLeft === 0) {
+            clearInterval(timer);
+            timeDisplay.textContent = "00:00";
+            showPopup(); // Call the showPopup function here
+          }
+
+          timeLeft--;
+        }
+
+        const timer = setInterval(updateCountdown, 1000);
+
+        // Function to display the popup
+        function showPopup() {
+          const popup = document.createElement('div');
+          popup.classList.add('popup');
+          popup.innerHTML = `<h2>Le compte à rebours est terminé !</h2>`;
+
+          // Add a button to close the popup
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Fermer';
+            closeButton.addEventListener('click', () => {
+              document.body.removeChild(popup);
+            });
+            popup.appendChild(closeButton);
+
+          // relancer le compte à rebours quand on clique sur le bouton remove
+            closeButton.addEventListener('click', () => {
+                timeLeft = totalTime;
+                timer = setInterval(updateCountdown, 1000);
+            });
+
+          // ajoute un effet a l'appariton de la popup, ou le texte apparait lettre par lettre
+            let index = 0;
+            const text = popup.querySelector('h2').textContent;
+            popup.querySelector('h2').textContent = '';
+            const interval = setInterval(() => {
+              popup.querySelector('h2').textContent += text[index];
+              index++;
+              if (index === text.length) {
+                clearInterval(interval);
+              }
+            }, 100);
+
+          document.body.appendChild(popup);
+        }
+      </script>
     </div>
     <!-- sidebar ends -->
 
