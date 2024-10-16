@@ -62,11 +62,9 @@
       </div>
 
       <script>
-        // que le compte a rebours commence avec le temps recue par url de la page connexion.html
+        // je récupère la valeur du temps pour totaltime sous cette forme : index.html?valeur=" + valeurRange, comment faire pour récuperer la valeur de valeurRange ?*
         const urlParams = new URLSearchParams(window.location.search);
-        const choix = urlParams.get('choix');
-        console.log(choix);
-
+        const choix = urlParams.get('valeur');
         const totalTime = choix; // Temps en secondes
         let timeLeft = totalTime;
 
